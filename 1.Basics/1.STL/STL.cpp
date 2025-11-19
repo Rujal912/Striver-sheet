@@ -1,4 +1,15 @@
-#include<bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <list>
+#include <deque>
+#include <stack>
+#include <queue>
+#include <set>
+#include <unordered_set>
+#include <map>
+#include <algorithm>
+#include <numeric>
+#include <string>
 using namespace std;
 void explainPair() {
     pair<int, int> pr1 = {2, 8};
