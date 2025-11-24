@@ -594,7 +594,7 @@ void explainComparator1(){
 }
 
 int main() {
-    // explainPair();
+    explainPair();
     // explainVector();
     // explainList();
     // explainDeque();
