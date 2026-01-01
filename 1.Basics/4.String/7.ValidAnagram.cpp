@@ -1,27 +1,23 @@
 // Question - Valid Anagram
 // Two strings are anagrams if they contain the same characters
-// in any order, with identical frequencies.
-
-// We solve this using:
-// 1. Brute (sorting both strings)
-// 2. Optimal (using frequency counting)
+// with the same frequencies, possibly in a different order.
 
 #include <iostream>
 #include <string>
 #include <algorithm>
-#include <vector>
 using namespace std;
 
 // -------------------------------------------------------------
 // Brute Force Approach
 // Time Complexity: O(n log n)
-// Logic: Sort both strings and compare
+// Logic:
+// 1. If lengths differ → not anagrams
+// 2. Sort both strings
+// 3. If sorted strings are equal → anagrams
 // -------------------------------------------------------------
 bool anagramStringsBrute(string s, string t) {
-    // If lengths differ → not anagrams
-    if (s.length() != t.length()) return false;
+    if (s.size() != t.size()) return false;
 
-    // Sort characters so identical strings become equal
     sort(s.begin(), s.end());
     sort(t.begin(), t.end());
 
@@ -29,27 +25,33 @@ bool anagramStringsBrute(string s, string t) {
 }
 
 // -------------------------------------------------------------
-// Optimal Approach
+// Optimal Approach (Updated)
 // Time Complexity: O(n)
-// Logic: Count frequency of each character (ASCII 256 chars)
+// Space Complexity: O(1) (fixed size arrays of 26)
+// Logic:
+// 1. Count frequency of each character in both strings
+// 2. Compare frequency arrays
 // -------------------------------------------------------------
 bool anagramStringsOptimal(string s, string t) {
-    if (s.length() != t.length()) return false;
+    if (s.size() != t.size()) return false;
 
-    vector<int> freq(256, 0);
+    int freqS[26] = {0};
+    int freqT[26] = {0};
 
-    // Count in s, subtract in t
-    for (int i = 0; i < s.length(); i++) {
-        freq[s[i]]++;   // character in s
-        freq[t[i]]--;   // character in t
+    // Count frequencies for both strings
+    for (int i = 0; i < s.size(); i++) {
+        freqS[s[i] - 'a']++;
+        freqT[t[i] - 'a']++;
     }
 
-    // If all zeros → frequencies matched
-    for (int x : freq) {
-        if (x != 0) return false;
+    // Compare frequency arrays
+    for (int i = 0; i < 26; i++) {
+        if (freqS[i] != freqT[i]) {
+            return false;
+        }
     }
 
-    return true;
+    return true;  // All character counts match
 }
 
 int main() {
